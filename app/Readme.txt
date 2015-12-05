@@ -53,3 +53,18 @@ MVC设计模式表明，应用的任何对象，归根结底都属于模型对�
 的全部视图对象组成了视图层；
 控制对象：包含了应用的逻辑单元，是视图和模型对象的联系纽带。控制对象用来设计响应由视图对象触发的各类事件，此外还有管理模型
 对象与视图层间的数据流动。在Android中，控制器通常是Activity、Fragment或Service的子类。
+
+14.Android项目的图片资源在res目录下：
+    drawable-hdpi：高像素密度屏幕（约240dpi）
+    drawable-mdpi：中等像素密度屏幕（约160dpi）
+    drawable-xhdpi：超高像素密度屏幕（约320dpi）
+
+任何添加到res/drawable目录中后缀为.png、.jpg、.gif的文件都会被自动赋予资源ID。这里文件名必须是小写字母且不能有任何空格。
+操作系统知道如何在特定的设备上显示匹配的图片，因此不需要我们在coding的时候决定什么密度的屏幕用什么样的图片资源。
+
+15.在XML资源文件中，通过资源类型和资源名称，可以引用其他资源，以@string开头的定义是引用字符串资源，以@drawable开头的是引
+用drawable资源。
+
+16.图标按钮的实现依赖于ImageButton组件，ImageButton组件继承自ImageView，Button组件则继承自TextView。
+ImageButton组件会要求加上android:contentDescription属性，这个属性当设置了文本属性值后，如果用户有视力障碍且用户设备设置
+了相关的访问选项，那么用户点击图标时，就会读出对应的文本。
