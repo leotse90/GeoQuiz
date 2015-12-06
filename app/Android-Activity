@@ -1,0 +1,55 @@
+Android Activity的生命周期
+
+1.每个Activity实例都有其生命周期，在其生命周期内，activity在运行、暂停和停止三种可能的状态间进行转换。每次状态发生改变时，
+都有一个Activity方法将状态改变的消息通知给Activity。
+
+［运行（在前台）］－离开前台，onPause()－> ［暂停（可见）］－不再可见，onStop()－>［停止（不可见）］－完成或销毁，onDestroy()－> ［不存在］
+
+［不存在］－启动，onCreate()－>［停止（不可见）］－对用户可见，onStart()－>［暂停（可见）］－进入前台，onResume()－>［运行（在前台）］
+
+2.onCreate()方法，在创建activity实例之后，此实例出现在屏幕之间，Android操作系统会调用该方法。
+通常，activity通过覆盖onCreate()方法来准备以下用户界面的相关工作：
+1）实例化组件并将组件放置在屏幕上（调用方法setContentView(int)）；
+2）引用已经实例化的组件；
+3）为组件设置监听器以处理用户交互；
+4）访问外部模型数据。
+
+3.我们无需自己调用onCreate()方法或任何其他Activity生命周期方法，我们只需要在activity子类里覆盖这些方法即可，Android会适时去调用他们。
+
+4.在onCreate()方法里，必须先调用父类的实现方法，即super.OnCreate(Bundle)，然后再调用其它方法，这一点很关键，而在其他方法中，是否首先
+调用父类方法就不那么重要了。
+（使用@Override注解，即要求编译器保证当前类具有准备覆盖的方法，若父类不存在该方法，则编译器会给出警告）
+
+5.停止的activity能够存活多久，谁也没有办法保证，如果系统需要回收内存，它将首先销毁那些停止的activity。
+
+6.设备旋转时，当前看到的activity实例会被系统销毁，然后创建一个新的activity。这个过程中伴随着activity的暂停－停止到销毁，然后创建－启动到运行。
+12-06 19:56:31.274 22330-22330/com.tuyage.www.geoquiz D/MainActivity: onPause() called
+12-06 19:56:31.275 22330-22330/com.tuyage.www.geoquiz D/MainActivity: onStop() called
+12-06 19:56:31.275 22330-22330/com.tuyage.www.geoquiz D/MainActivity: onDestroy() called
+12-06 19:56:31.355 22330-22330/com.tuyage.www.geoquiz D/MainActivity: onCreate(Bundle) called
+12-06 19:56:31.403 22330-22330/com.tuyage.www.geoquiz D/MainActivity: onStart() called
+12-06 19:56:31.403 22330-22330/com.tuyage.www.geoquiz D/MainActivity: onResume() called
+旋转设备会改变设备配置（device configuration），设备配置是用来描述设备当前状态的一系列特征，包括：屏幕的方向、屏幕的密度、屏幕的尺寸、
+键盘类型、底座模式以及语言等等。
+有些配置可以再运行时发生改变，如屏幕方向，有些配置不可以在运行时改变，比如设备的屏幕密度。
+在运行时配置变更（runtime configuration change）发生时，可能会有更合适的资源来匹配新的设备配置。
+http://developer.android.com/guide/topics/resources/providing-resources.html
+只要在应用运行中设备的配置发生了变更，Android就会销毁当前activity，然后创建一个activity。
+
+7.Android从不会为了回收内存，而去销毁正在运行的activity。activity只有在暂停或者停止状态下才可能会被销毁。此时，会调用
+onSaveInstanceState()方法，在调用此方法时，用户数据即保存在Bundle对象中，然后操作系统将Bundle对象放入activity记录中。
+因此在这里我们需记住activity的生命周期多了一个暂存状态（activity已被销毁，实例状态已经保存），这样，在activity恢复时，操作
+系统可以使用暂存的activity纪录重新激活activity。
+注意，activity进入暂存状态时并不一定要调用onDestroy()方法，不过，onPause()和onSaveInstanceState()通常是我们要调用的
+两个方法。常见的做法是，覆盖onSaveInstanceState()方法，将数据暂存在Bundle对象中，覆盖onPause()方法处理其他需处理的事情。
+
+那么暂存的activity纪录可以保存多久？用户按了后退键，系统会销毁当前的activity，此时，暂存的activity记录同时被清除。此外，
+系统重启或者长时间不使用activity时，暂存的记录也会被清除。
+
+8.日志级别（android.util.Log）:
+Log Level   Method      说明
+ERROR       Log.e()     错误
+WARNING     Log.w()     警告
+INFO        Log.i()     信息型消息
+DEBUG       Log.d()     调试输出：可能被过滤掉
+VERBOSE     Log.v()     只用于开发
