@@ -31,6 +31,7 @@ public class MainActivity extends Activity {
 
     // 获取最新的question，并在TextView中展示
     private void updateQuestion(){
+//        Log.d(TAG, "Updating question text for question #" + mCurrentIndex, new Exception());
         int question = mQuestionBank[mCurrentIndex].getQuestion();
         mQuestionTextView.setText(question);
     }

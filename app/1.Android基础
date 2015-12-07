@@ -68,3 +68,12 @@ MVC设计模式表明，应用的任何对象，归根结底都属于模型对�
 16.图标按钮的实现依赖于ImageButton组件，ImageButton组件继承自ImageView，Button组件则继承自TextView。
 ImageButton组件会要求加上android:contentDescription属性，这个属性当设置了文本属性值后，如果用户有视力障碍且用户设备设置
 了相关的访问选项，那么用户点击图标时，就会读出对应的文本。
+
+17.Android Lint:Android应用代码的静态分析器。实际上，它是无需代码运行，就能进行代码错误检查的特殊程序。
+
+18.R.java的问题，对于引用还未添加的资源或者删除仍被引用的资源而导致的编译错误，偶尔会出现。通常，在添加资源或删除引用后再重新
+保存文件，就可以重新进行项目编译。如果遇到莫名其妙的错误，可以尝试以下方法：
+－运行Android Lint；（Android Studio中Analyze->Inspect Code）
+－清理项目；
+－重新检查资源文件中XML文件的有效性；
+－删除gen目录。
