@@ -53,3 +53,23 @@ WARNING     Log.w()     警告
 INFO        Log.i()     信息型消息
 DEBUG       Log.d()     调试输出：可能被过滤掉
 VERBOSE     Log.v()     只用于开发
+
+9.manifest配置文件是一个包含元数据的XML文件，用来向Android系统描述应用。该文件以AndroidManifest.xml命名。
+应用所有的activity都必须在manifest配置文件中声明，这样操作系统才能使用它们。
+
+10.一个activity启动另一个activity的最简单办法就是使用以下Activity的方法：
+public void startActivity(Intent intent)
+事实上，activity调用startActivity()方法时，调用请求实际发给了操作系统。准确地说，该方法调用请求是发给操作系统的
+ActivityManager。ActivityManager负责创建Activity实例并调用其onCreate()方法。
+
+11.Intent通信：
+intent对象是component用来与操作系统通信的一种媒介工具。component有：activity、service、broadcast receiver以及
+content provider。
+Intent是一种多功能通信工具。
+如果通过指定Context和Class对象然后调用Intent的构造方法来创建Intent，则创建的是显式的Intent。
+一个应用的activity如果需要启动另一个应用的activity，则可以通过创建隐式intent来处理。
+
+如果要进行两个activity的数据传递，可以通过Intent.putExtra()方法将extra数据信息添加给intent，通过ActivityManager
+中转给另一个activity。
+如果要从子activity获取返回信息，则可以调用：
+public void startActivityForResult(Intent intent, int requestCode)
