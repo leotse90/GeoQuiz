@@ -2,6 +2,7 @@ package com.tuyage.www.geoquiz;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,7 @@ public class CheatActivity extends Activity {
 
     private boolean mAnswerIsTrue;
     private TextView mAnswerTextView;
+    private TextView mVerTextView;
     private Button mShowAnswerButton;
 
     private void setAnswerShownResult(boolean isAnswerShown){
@@ -48,5 +50,8 @@ public class CheatActivity extends Activity {
                 setAnswerShownResult(true);
             }
         });
+
+        mVerTextView = (TextView)findViewById(R.id.verTextView);
+        mVerTextView.setText("API level " + Build.VERSION.SDK_INT);
     }
 }

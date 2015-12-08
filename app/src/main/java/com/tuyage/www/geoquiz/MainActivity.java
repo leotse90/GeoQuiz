@@ -9,6 +9,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Main Activity of GeoQuiz.
+ * @author leotse
+ * @version 1.0
+ */
 public class MainActivity extends Activity {
 
     // 变量名称前面的m前缀，该前缀是Android编程的命名规范
