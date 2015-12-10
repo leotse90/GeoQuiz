@@ -1,0 +1,5 @@
+Android thread
+
+1.多线程之Handler。
+Android的消息机制是另一种形式的“事件处理”，这种机制主要是为了解决Androidy应用中的多线程的问题。在Android中不
+允许Activity新启动的线程访问该Activity里的UI组件，这样会导致新启动的线程无法改变UI组件的属性值。
